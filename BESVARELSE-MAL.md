@@ -14,11 +14,54 @@
 
 **Identifiserte entiteter:**
 
-[Skriv ditt svar her - list opp alle entitetene du har identifisert]
+- Kunde
+- Stasjon
+- Lås
+- Sykkel
+- Utleie
 
 **Attributter for hver entitet:**
 
-[Skriv ditt svar her - list opp attributtene for hver entitet]
+Kunde:
+- kunde_id
+- mobilnummer
+- epost
+- fornavn
+- etternavn
+- registrert_tid
+
+Stasjon:
+- stasjon_id
+- navn
+- adresse
+
+Lås:
+- laas_id
+- stasjon_id
+- laas_nummer
+
+Sykkel:
+- sykkel_id
+- tatt_i_bruk_dato
+- stasjon_id
+- laas_id
+
+Utleie:
+- utleie_id
+- kunde_id
+- sykkel_id
+- utlevert_tid
+- innlevert_tid
+- leie_sum
+
+Begrunnelse:
+
+Disse entitetene er identifisert basert på case-beskrivelsen. 
+Systemet må holde styr på kunder som registrerer seg og leier sykler, 
+sykler som står på de forskjellige stasjonene, og låses med en lås, samt utleieforhold 
+som registrerer starttidspunkt, sluttidspunkt og leiebeløp. 
+Entitetene dekker alle nødvendige objekter i systemet uten å inkludere 
+irrelevante elementer.
 
 ---
 
