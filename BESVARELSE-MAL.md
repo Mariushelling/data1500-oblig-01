@@ -69,7 +69,43 @@ irrelevante elementer.
 
 **Valgte datatyper og begrunnelser:**
 
-[Skriv ditt svar her - forklar hvilke datatyper du har valgt for hver attributt og hvorfor]
+Kunde:
+
+- kunde_id: INTEGER (brukes som unik identifikator for hver kunde. Implementeres som auto-generert primærnøkkel i databasen.)
+- mobilnummer: VARCHAR(15) (passelig lengde for ett telefonnummer, siden de kan variere i lengde og kan inkludere landskode)
+- epost: VARCHAR(100) (tilstrekkelig lengde for ett tekstfelt for e-postadresser)
+- fornavn: VARCHAR(50) (kort tekstfelt for fornavn)
+- etternavn: VARCHAR(50) (kort tekstfelt for etternavn)
+- registrert_tid: TIMESTAMP (registrering skjer på et bestemt tidspunkt)
+
+Stasjon:
+
+- stasjon_id: INTEGER (unik identifikator for hver stasjon)
+- navn: VARCHAR(100) (tekstfelt for stasjonsnavn)
+- adresse: VARCHAR(200) (tekstfelt for adresse)
+
+Lås:
+
+- laas_id: INTEGER (unik identifikator for hver lås)
+- stasjon_id: INTEGER (refererer til hvilken stasjon låsen tilhører)
+- laas_nummer: INTEGER (nummer på låsen innenfor stasjonen)
+
+Sykkel:
+
+- sykkel_id: INTEGER (unik identifikator for hver sykkel)
+- tatt_i_bruk_dato: DATE (dato sykkelen ble tatt i bruk)
+- stasjon_id: INTEGER (refererer til hvilken stasjon sykkelen står på, kan være NULL når sykkelen er utleid)
+- laas_id: INTEGER (refererer til hvilken lås sykkelen er festet til, kan være NULL når sykkelen er utleid)
+
+Utleie:
+
+- utleie_id: INTEGER (unik identifikator for hvert utleieforhold)
+- kunde_id: INTEGER (refererer til kunden som leier sykkelen)
+- sykkel_id: INTEGER (refererer til sykkelen som leies)
+- utlevert_tid: TIMESTAMP (tidspunkt for når sykkelen ble låst opp)
+- innlevert_tid: TIMESTAMP (tidspunkt for når sykkelen ble levert tilbake, kan være NULL hvis den ikke er levert ennå)
+- leie_sum: NUMERIC(10,2) (pengebeløp med to desimaler)
+
 
 **`CHECK`-constraints:**
 
