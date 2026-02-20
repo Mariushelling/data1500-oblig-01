@@ -82,7 +82,7 @@ Stasjon:
 
 - stasjon_id: INTEGER (unik identifikator for hver stasjon)
 - navn: VARCHAR(100) (tekstfelt for stasjonsnavn)
-- adresse: VARCHAR(200) (tekstfelt for adresse)
+- adresse: VARCHAR(100) (tekstfelt for adresse)
 
 Lås:
 
@@ -172,15 +172,25 @@ erDiagram
 
 **Valgte primærnøkler og begrunnelser:**
 
-[Skriv ditt svar her - forklar hvilke primærnøkler du har valgt for hver entitet og hvorfor]
+For hver enitet har jeg valgt en egen ID som primærnøkkel. Disse representert i form av kunde_id, stasjon_id, laas_id, sykkel_id, og utleie_id. Disse brukes til å identifisere hver rad unikt i tabellen.
+
+- Kunde: kunde_id er valgt som primærnøkkel, fordi den identifiserer hver kunde unikt i systemet.
+- Stasjon: stasjon_id er valgt som primærnøkkel, fordi hver stasjon må kunne skilles fra andre uavhengig av navn eller adresse.
+- Lås: laas_id er valgt som primærnøkkel, fordi laas_nummer kan gjentas på ulike stasjoner, og vi trenger derfor en annen indentifikator.
+- Sykkel: sykkel_id er valgt som primærnøkkel, fordi hver sykkel i systemet har en unik ID.
+- Utleie: utleie_id er valgt som primærnøkkel, fordi hvert utleieforhold må kunne identifiseres som en egen hendelse.
+
+Jeg har valgt å bruke egne ID-er i stedet for for eksempel e-post eller mobilnummer, fordi slike verdier kan endre seg over tid. En kunde kan bytte e-postadresse eller telefonnummer, men kunde_id skal være stabil og aldri endres.
+
+For lås kunne man for eksempel brukt en kombinasjon av stasjon_id og laas_nummer som naturlig nøkkel, men jeg har valgt å bruke laas_id som en egen primærnøkkel for å gjøre modellen enklere og mer oversiktlig.
 
 **Naturlige vs. surrogatnøkler:**
 
-[Skriv ditt svar her - diskuter om du har brukt naturlige eller surrogatnøkler og hvorfor]
+I denne modellen brukes det hovedsakelig surrogatnøkler. Jeg har valgt dette for å gjøre databasen enklere å jobbe med, samtidig som den blir mer robust dersom andre attributter endrer seg. 
 
 **Oppdatert ER-diagram:**
 
-[Legg inn mermaid-kode eller eventuelt en bildefil fra `mermaid.live` her]
+ER-diagrammet fra 1.2 er oppdatert, og består av primærnøkler og fremmednøkler. Se diagram over.
 
 ---
 
