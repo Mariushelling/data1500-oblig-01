@@ -94,7 +94,7 @@ Sykkel:
 
 - sykkel_id: INTEGER (unik identifikator for hver sykkel)
 - tatt_i_bruk_dato: DATE (dato sykkelen ble tatt i bruk)
-- stasjon_id: INTEGER (refererer til hvilken stasjon sykkelen står på, kan være NULL når sykkelen er utleid)
+- stasjon_id: INTEGER (refererer til hvilken stasjon sykkelen er plassert på, kan være NULL når sykkelen er utleid)
 - laas_id: INTEGER (refererer til hvilken lås sykkelen er festet til, kan være NULL når sykkelen er utleid)
 
 Utleie:
@@ -104,16 +104,67 @@ Utleie:
 - sykkel_id: INTEGER (refererer til sykkelen som leies)
 - utlevert_tid: TIMESTAMP (tidspunkt for når sykkelen ble låst opp)
 - innlevert_tid: TIMESTAMP (tidspunkt for når sykkelen ble levert tilbake, kan være NULL hvis den ikke er levert ennå)
-- leie_sum: NUMERIC(10,2) (pengebeløp med to desimaler)
+- leie_sum: er valgt som NUMERIC(10,2) for å kunne lagre beløp med to desimaler.
 
 
 **`CHECK`-constraints:**
 
-[Skriv ditt svar her - list opp alle CHECK-constraints du har lagt til og forklar hvorfor de er nødvendige]
+Følgende CHECK-constraints er lagt til for å sikre dataintegritet:
+
+- mobilnummer: sikres med CHECK slik at verdien kun inneholder sifre og eventuelt starter med "+"
+- epost: må inneholde "@" og et domene (grunnleggende validering av format).
+- laas_nummer: må være større enn 0.
+- leie_sum: må være større enn eller lik 0.
+- innlevert_tid: må være senere enn utlevert_tid, eller NULL dersom sykkelen ikke er levert enda.
 
 **ER-diagram:**
 
-[Legg inn mermaid-kode eller eventuelt en bildefil fra `mermaid.live` her]
+```mermaid
+erDiagram
+
+    KUNDE {
+        int kunde_id PK
+        varchar mobilnummer
+        varchar epost
+        varchar fornavn
+        varchar etternavn
+        timestamp registrert_tid
+    }
+
+    STASJON {
+        int stasjon_id PK
+        varchar navn
+        varchar adresse
+    }
+
+    LAAS {
+        int laas_id PK
+        int stasjon_id FK
+        int laas_nummer
+    }
+
+    SYKKEL {
+        int sykkel_id PK
+        date tatt_i_bruk_dato
+        int stasjon_id FK
+        int laas_id FK
+    }
+
+    UTLEIE {
+        int utleie_id PK
+        int kunde_id FK
+        int sykkel_id FK
+        timestamp utlevert_tid
+        timestamp innlevert_tid
+        numeric leie_sum
+    }
+
+    STASJON ||--o{ LAAS : har
+    STASJON ||--o{ SYKKEL : inneholder
+    KUNDE ||--o{ UTLEIE : har
+    SYKKEL ||--o{ UTLEIE : leies_i
+```
+
 
 ---
 
