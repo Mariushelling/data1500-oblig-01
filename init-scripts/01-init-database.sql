@@ -5,6 +5,19 @@
 
 -- Opprett grunnleggende tabeller
 
+CREATE TABLE Kunde (
+  kunde_id SERIAL PRIMARY KEY,
+  mobilnummer VARCHAR(15) NOT NULL,
+  epost VARCHAR(100) NOT NULL,
+  fornavn VARCHAR(50) NOT NULL,
+  etternavn VARCHAR(50) NOT NULL,
+  registrert_tid TIMESTAMP NOT NULL DEFAULT CURRENT TIMESTAMP,
+  CHECK (epost LIKE '%@%')
+  );
+
+
+  
+
 
 
 -- Sett inn testdata
