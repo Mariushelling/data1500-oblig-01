@@ -56,10 +56,10 @@ Utleie:
 
 Begrunnelse:
 
-Disse entitetene er identifisert basert på case-beskrivelsen. 
+Disse entitetene er identifisert basert på case beskrivelsen. 
 Systemet må holde styr på kunder som registrerer seg og leier sykler, 
-sykler som står på de forskjellige stasjonene, og låses med en lås, samt utleieforhold 
-som registrerer starttidspunkt, sluttidspunkt og leiebeløp. 
+sykler som står på de forskjellige stasjonene, og låses med en lås, samtidig som utleieforhold 
+registrerer starttidspunkt, sluttidspunkt og leiebeløp. 
 Entitetene dekker alle nødvendige objekter i systemet uten å inkludere 
 irrelevante elementer.
 
@@ -172,15 +172,15 @@ erDiagram
 
 **Valgte primærnøkler og begrunnelser:**
 
-For hver enitet har jeg valgt en egen ID som primærnøkkel. Disse representert i form av kunde_id, stasjon_id, laas_id, sykkel_id, og utleie_id. Disse brukes til å identifisere hver rad unikt i tabellen.
+For hver entitet har jeg valgt en egen ID som primærnøkkel. Disse er representert i form av kunde_id, stasjon_id, laas_id, sykkel_id, og utleie_id. Disse brukes til å identifisere hver rad unikt i tabellen.
 
 - Kunde: kunde_id er valgt som primærnøkkel, fordi den identifiserer hver kunde unikt i systemet.
 - Stasjon: stasjon_id er valgt som primærnøkkel, fordi hver stasjon må kunne skilles fra andre uavhengig av navn eller adresse.
-- Lås: laas_id er valgt som primærnøkkel, fordi laas_nummer kan gjentas på ulike stasjoner, og vi trenger derfor en annen indentifikator.
+- Lås: laas_id er valgt som primærnøkkel, fordi laas_nummer kan gjentas på ulike stasjoner, og vi trenger derfor en annen identifikator.
 - Sykkel: sykkel_id er valgt som primærnøkkel, fordi hver sykkel i systemet har en unik ID.
 - Utleie: utleie_id er valgt som primærnøkkel, fordi hvert utleieforhold må kunne identifiseres som en egen hendelse.
 
-Jeg har valgt å bruke egne ID-er i stedet for for eksempel e-post eller mobilnummer, fordi slike verdier kan endre seg over tid. En kunde kan bytte e-postadresse eller telefonnummer, men kunde_id skal være stabil og aldri endres.
+Jeg har valgt å bruke egne ID-er i stedet for for eksempel e-post eller mobilnummer, fordi slike verdier kan endre seg over tid. En kunde kan bytte e-postadresse eller telefonnummer, men kunde_id skal være stabil og aldri endres. Dette gjør databasen mer robust og enklere og vedlikeholde
 
 For lås kunne man for eksempel brukt en kombinasjon av stasjon_id og laas_nummer som naturlig nøkkel, men jeg har valgt å bruke laas_id som en egen primærnøkkel for å gjøre modellen enklere og mer oversiktlig.
 
@@ -206,7 +206,7 @@ ER-diagrammet fra 1.2 er oppdatert, og består av primærnøkler og fremmednøkl
 **Fremmednøkler:**
 
 - I tabellen Laas (lås) finnes kolonnen stasjon_id. Denne peker til primærnøkkelen stasjon_id i tabellen Stasjon og viser hvilken stasjon en lås tilhører.
-- I tabellen Sykkel, finner vi også kolonnen stasjons_id. Denne peker igjen til Stasjon og viser hvilken stasjon sykelen står på. Denne kan være NULL hvis sykkelen er utleid.
+- I tabellen Sykkel, finner vi også kolonnen stasjon_id. Denne peker igjen til Stasjon og viser hvilken stasjon sykelen står på. Denne kan være NULL hvis sykkelen er utleid.
 - I tabellen Sykkel finner vi også kolonnen laas_id. Denne peker til primærnøkkelen laas_id i tabellen Laas, og viser hvilken lås sykkelen er festet i. Denne kan også være NULL dersom sykelen er utleid. Siden da er ikke sykkelen festet i noe lås.
 - I tabellen Utleie ser vi kolonnen kunde_id. Denne sikter til primærnøkkelen kunde_id i tabellen Kunde, og viser hvilken kunde som har starta utleieforholdet.
 - I tabellen Utleie finner vi også kolonnen sykkel_id, som sikter til primærnøkkelen sykkel_id i tabellen Sykkel. Og den viser hvilken sykkel som er leid.
@@ -223,19 +223,20 @@ ER-diagrammet er oppdateert og viser både relasjoner og fremmednøkler. ( Se me
 
 **Vurdering av 1. normalform (1NF):**
 
-[Skriv ditt svar her - forklar om datamodellen din tilfredsstiller 1NF og hvorfor]
+Datamodellen min tilfredstiller 1NF fordi det kun lagres en verdi i hver kolonne per rad. Det finnes ingen kolonner som inneholder flere verdier samtidig. Dette betyr at tabellene ikke har gjentakende grupper, og at alle verdiene er enkeltstående.
 
 **Vurdering av 2. normalform (2NF):**
 
-[Skriv ditt svar her - forklar om datamodellen din tilfredsstiller 2NF og hvorfor]
+Datamodellen er i 2NF fordi alle tabeller har en enkel primærnøkkel, altså en ID per tabell. Det finnes ingen sammensatte primærnøkler, og alle andre attributter i tabellen er avhengige av den ene primærnøkkelen.
 
 **Vurdering av 3. normalform (3NF):**
 
-[Skriv ditt svar her - forklar om datamodellen din tilfredsstiller 3NF og hvorfor]
+Datamodellen er i 3NF fordi hver type informasjon er plassert i korrekt tabell. For eksempel lagres kundeinformasjon kun i tabellen Kunde, og ikke Utleie. På samme måte lagres informasjon om sykler, stasjoner og låser i egne tabeller. Dette gjør at data ikke lagres flere steder enn nødvendig og reduserer risikoen for feil og dupliserting.
+
 
 **Eventuelle justeringer:**
 
-[Skriv ditt svar her - hvis modellen ikke var på 3NF, forklar hvilke justeringer du har gjort]
+Modellen vurderes til å være i 3NF, så det var ikke nødvendig å gjøre noen justeringer.
 
 ---
 
