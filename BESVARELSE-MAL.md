@@ -215,7 +215,7 @@ Fremmednøklene sørger for at databasen ikke kan registrere et utleieforhold fo
 
 **Oppdatert ER-diagram:**
 
-ER-diagrammet er oppdateert og viser både relasjoner og fremmednøkler. ( Se mermaid-diagram over)
+ER-diagrammet er oppdatert og viser både relasjoner og fremmednøkler. ( Se mermaid-diagram over)
 
 ---
 
