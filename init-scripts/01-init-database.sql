@@ -53,6 +53,45 @@ CREATE TABLE Utleie (
 
 -- Sett inn testdata
 
+INSERT INTO Kunde (mobilnummer, epost, fornavn, etternavn)
+VALUES
+('94000011', 'anna.hansen@example.com', 'Anna', 'Hansen'),
+('95000012', 'jonas.larsen@example.com', 'Jonas', 'Larsen'),
+('96000013', 'emma.nilsen@example.com', 'Emma', 'Nilsen'),
+('97000014', 'henrik.olsen@example.com', 'Henrik', 'Olsen'),
+('98000015', 'sofia.johansen@example.com', 'Sofia', 'Johansen');
+
+INSERT INTO Stasjon (navn, adresse)
+VALUES
+('Grünerløkka', 'Thorvald Meyers gate 10'),
+('Majorstuen', 'Kirkeveien 64'),
+('Tøyen', 'Tøyengata 2'),
+('Bjørvika', 'Dronning Eufemias gate 15'),
+('St. Hanshaugen', 'Ullevålsveien 47');
+
+INSERT INTO Laas (stasjon_id, laas_nummer)
+SELECT s.stasjon_id, l.nr
+FROM generate_series(1,5) AS s(stasjon_id)
+CROSS JOIN generate_series(1,20) AS l(nr);
+
+INSERT INTO Sykkel (tatt_i_bruk_dato, stasjon_id, laas_id)
+SELECT 
+    CURRENT_DATE,
+    l.stasjon_id,
+    l.laas_id
+FROM Laas l;
+
+INSERT INTO Utleie (kunde_id, sykkel_id, utlevert_tid, innlevert_tid, leie_sum)
+SELECT 
+    (gs % 5) + 1 AS kunde_id,
+    gs AS sykkel_id,
+    CURRENT_TIMESTAMP - INTERVAL '2 hours',
+    CURRENT_TIMESTAMP - INTERVAL '1 hour',
+    49.00
+FROM generate_series(1,50) AS gs;
+
+--Testdataene er generert ved bruk av PostgreSQL-funksjonen generate_series for å effektivisere opprettelsen av større datamengder.
+
 
 
 -- DBA setninger (rolle: kunde, bruker: kunde_1)
