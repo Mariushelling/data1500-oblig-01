@@ -262,7 +262,12 @@ Modellen vurderes til å være i 3NF, så det var ikke nødvendig å gjøre noen
 
 **Dokumentasjon av vellykket kjøring:**
 
-[Skriv ditt svar her - f.eks. skjermbilder eller output fra terminalen som viser at databasen ble opprettet uten feil]
+Initialiseringsskriptet ble kjørt via Docker ved hjelp av kommandoen:
+
+cat init-scripts/01-init-database.sql | docker compose exec -T postgres psql -U admin -d oblig01
+
+Tabellene ble oprettet og testdata satt inn. Ved ny kjøring fikk jeg melding om at tabellene allerede eksisterte, noe som bekrefter at de tidligere var oprettet.
+
 
 **Spørring mot systemkatalogen:**
 
@@ -277,7 +282,14 @@ ORDER BY table_name;
 **Resultat:**
 
 ```
-[Skriv resultatet av spørringen her - list opp alle tabellene som ble opprettet]
+ table_name 
+------------
+ kunde
+ laas
+ stasjon
+ sykkel
+ utleie
+(5 rows)
 ```
 
 ---
