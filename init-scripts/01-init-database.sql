@@ -50,7 +50,6 @@ CREATE TABLE Utleie (
   FOREIGN KEY (sykkel_id) REFERENCES Sykkel(sykkel_id)
   );
 
-
 -- Sett inn testdata
 
 INSERT INTO Kunde (mobilnummer, epost, fornavn, etternavn)
