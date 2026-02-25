@@ -246,15 +246,15 @@ Modellen vurderes til å være i 3NF, så det var ikke nødvendig å gjøre noen
 
 **Plassering av SQL-skript:**
 
-[Bekreft at du har lagt SQL-skriptet i `init-scripts/01-init-database.sql`]
+SQL-skriptet for oprettelsen av tabeller og innsetting av testdata er plassert riktig i mappen init-scripts med filnavnet 01-init-database.sql.
 
 **Antall testdata:**
 
-- Kunder: [antall]
-- Sykler: [antall]
-- Sykkelstasjoner: [antall]
-- Låser: [antall]
-- Utleier: [antall]
+- Kunder: 5
+- Sykler: 100
+- Sykkelstasjoner: 5
+- Låser: 100
+- Utleier: 50
 
 ---
 
