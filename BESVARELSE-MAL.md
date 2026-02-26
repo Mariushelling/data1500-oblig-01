@@ -73,9 +73,9 @@ Kunde:
 
 - kunde_id: INTEGER (brukes som unik identifikator for hver kunde. Implementeres som auto-generert primærnøkkel i databasen.)
 - mobilnummer: VARCHAR(15) (passelig lengde for ett telefonnummer, siden de kan variere i lengde og kan inkludere landskode)
-- epost: VARCHAR(100) (tilstrekkelig lengde for ett tekstfelt for e-postadresser)
-- fornavn: VARCHAR(50) (kort tekstfelt for fornavn)
-- etternavn: VARCHAR(50) (kort tekstfelt for etternavn)
+- epost: VARCHAR(100) (tilstrekkelig lengde for ett tekstfelt for e-postadresser, kan variere i lengde, har derfor litt god margin)
+- fornavn: VARCHAR(50) (tekstfelt for fornavn)
+- etternavn: VARCHAR(50) (tekstfelt for etternavn)
 - registrert_tid: TIMESTAMP (registrering skjer på et bestemt tidspunkt)
 
 Stasjon:
