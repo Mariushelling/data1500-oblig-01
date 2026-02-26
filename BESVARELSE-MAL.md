@@ -266,8 +266,7 @@ Initialiseringsskriptet ble kjørt via Docker ved hjelp av kommandoen:
 
 cat init-scripts/01-init-database.sql | docker compose exec -T postgres psql -U admin -d oblig01
 
-Tabellene ble oprettet og testdata satt inn. Ved ny kjøring fikk jeg melding om at tabellene allerede eksisterte, noe som bekrefter at de tidligere var oprettet.
-
+Tabellene ble oprettet og testdata satt inn. 
 
 **Spørring mot systemkatalogen:**
 
