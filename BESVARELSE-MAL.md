@@ -300,20 +300,25 @@ ORDER BY table_name;
 **SQL for å opprette rolle:**
 
 ```sql
-[Skriv din SQL-kode for å opprette rollen 'kunde' her]
+CREATE ROLE kunde;
 ```
 
 **SQL for å opprette bruker:**
 
 ```sql
-[Skriv din SQL-kode for å opprette brukeren 'kunde_1' her]
+CREATE USER kunde_1 WITH PASSWORD 'kunde123';
 ```
 
 **SQL for å tildele rettigheter:**
 
 ```sql
-[Skriv din SQL-kode for å tildele rettigheter til rollen her]
+GRANT kunde TO kunde_1;
 ```
+
+Jeg har valgt å gi brukeren lesetilgang til tabellene Stasjon og Sykkel, da disse inneholder informasjon som er relevant for en kunde i dette systemet. Tabellen Kunde og Utleie har jeg valgt å utelukke for brukeren, for å unngå innsyn i andre kunders personopplysninger og utleiehistorikk. 
+
+GRANT SELECT ON Stasjon TO kunde;
+GRANT SELECT ON Sykkel TO kunde;
 
 ---
 
