@@ -111,7 +111,7 @@ Utleie:
 
 Følgende CHECK-constraints er lagt til for å sikre dataintegritet:
 
-- mobilnummer: sikres med CHECK slik at verdien kun inneholder sifre og eventuelt starter med "+"
+- mobilnummer: lagres som VARCHAR(15). I denne besvarelsen er det ikke lagt inn en streng CHECK på mobilnummer, men det kunne vært gjort for å sikre format.
 - epost: må inneholde "@" og et domene (grunnleggende validering av format).
 - laas_nummer: må være større enn 0.
 - leie_sum: må være større enn eller lik 0.
@@ -315,7 +315,9 @@ CREATE USER kunde_1 WITH PASSWORD 'kunde123';
 GRANT kunde TO kunde_1;
 ```
 
-Jeg har valgt å gi brukeren lesetilgang til tabellene Stasjon og Sykkel, da disse inneholder informasjon som er relevant for en kunde i dette systemet. Tabellen Kunde og Utleie har jeg valgt å utelukke for brukeren, for å unngå innsyn i andre kunders personopplysninger og utleiehistorikk. 
+Jeg har valgt å gi brukeren lesetilgang til tabellene Stasjon og Sykkel, da disse inneholder informasjon som er relevant for en kunde i systemet.
+
+Tabellene Kunde og Utleie er ikke gitt direkte SELECT-tilgang, for å unngå innsyn i andre kunders personopplysninger og utleiehistorikk. I stedet får brukeren tilgang til sine egne utleier gjennom et eget VIEW som filtrerer på riktig kunde_id.
 
 ```sql
 GRANT SELECT ON Stasjon TO kunde;
