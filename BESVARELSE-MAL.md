@@ -408,31 +408,67 @@ I prakis vil databasen bruke noe mer lagringsplass en selve datamengden, på gru
 
 **Problem 1: Redundans**
 
-[Skriv ditt svar her - gi konkrete eksempler fra CSV-filen som viser redundans]
+I CSV-filen ser vi at samme kundeinformasjon gjentas i flere rader. For eksempel forekommer "Ole Hansen" med mobilnummer +4791234567 og e-post ole.hansen@example.com
+ i flere rader.
+
+Tilsvarende ser vi at "Kari Olsen" også forekommer flere ganger med samme kontaktinformasjon.
+
+Dette betyr at kundeinformasjon lagres på nytt for hver utleie, noe som skaper redundans.
 
 **Problem 2: Inkonsistens**
 
-[Skriv ditt svar her - forklar hvordan redundans kan føre til inkonsistens med eksempler]
+Siden kundeinformasjon gjentas i flere rader, kan det oppstå inkonsistens dersom ikke alle like verdier oppdateres samtidig.
+
+For eksempel forekommer "Ole Hansen" med e-post ole.hansen@example.com i rad 2, 3 og 8. Dersom han endrer e-postadresse, må alle disse radene oppdateres. Hvis én av radene ikke blir oppdatert, vil filen inneholde både gammel og ny e-postadresse for samme person.
+
+Det samme gjelder stasjonsinformasjon. For eksempel forekommer "Sentrum Stasjon" med adressen "Karl Johans gate 1 Oslo" i flere rader. Hvis adressen endres og ikke oppdateres konsekvent, kan det oppstå motstridende informasjon.
+
+Dette viser hvordan redundans i en flat fil kan føre til inkonsistente data.
 
 **Problem 3: Oppdateringsanomalier**
 
 [Skriv ditt svar her - diskuter slette-, innsettings- og oppdateringsanomalier]
 
+En flat fil kan føre til flere typer anomalier:
+
+Oppdateringsanomali:
+Dersom Kari Olsen endrer mobilnummer, må alle radene der hun forekommer oppdateres. Hvis én rad ikke oppdateres, vil datasettet inneholde ulike mobilnumre for samme kunde.
+
+Innsettingsanomali:
+I denne strukturen kan man ikke registrere en ny kunde uten at det samtidig registreres en utleie. Det finnes ingen egen kundetabell, så en ny kunde må legges inn som en full rad med sykkel, stasjon og tidspunkt, selv om det kanskje ikke finnes en utleie ennå.
+
+Sletteanomali:
+Hvis den eneste utleien til for eksempel Anna Nilsen i rad 11 slettes, vil også all informasjon om henne forsvinne fra filen. Dermed mister man kundeinformasjon selv om kunden fortsatt eksisterer.
+
 **Fordeler med en indeks:**
 
-[Skriv ditt svar her - forklar hvorfor en indeks ville gjort spørringen mer effektiv]
+Dersom vi ønsker å finne alle utleieforhold for en bestemt sykkelmodell, for eksempel "City Bike Pro" må databasen uten indeks lese gjennom hele tabellen rad for rad. Dette kan ta lang tid om tabellen er stor.
+
+Men med en indeks, på f.eks sykkel_model kan databasen slå den opp direkte. Indeksen fungerer som ett oppslagsregister, som hjelper med å finne relevante rader raskere.
+
+Dette gjør søk mer effektivt, spessielt når databasen blir stor og tabeller inneholder tusenvis eller millioner av rader.
 
 **Case 1: Indeks passer i RAM**
 
-[Skriv ditt svar her - forklar hvordan indeksen fungerer når den passer i minnet]
+Dersom indeksen får plass i RAM, kan databasen gjøre søk svært raskt. Når en spørring kjøres, trenger ikke databasen å lese fra disk for å finne relevante rader, siden hele indekstrukturen allerede ligger i minnet. 
+
+F.eks, dersom vi søker etter alle utleieforhold for modellen "City Bike Pro" kan databasen bruke indeksen til å raskt finne de relevante radene. Dette gjør søket raskere enn om databasen måtte gått gjennom hele tabellen rad for rad.
 
 **Case 2: Indeks passer ikke i RAM**
 
-[Skriv ditt svar her - forklar hvordan flettesortering kan brukes]
+Dersom indeksen ikke får plass i RAM, må databasen lese deler av indeksen fra disk når en spørring skjer. Siden disk er tregere enn minne, vil søket ta lengere tid enn når hele indeksen ligger i RAM.
+
+Likevel vil en indeks forsatt gjøre søket mer effektivt enn å lese gjennom absolutt hele tabellen, fordi databasene bare trenger å lese relevante deler av indeksen, og ikke alle radene.  
 
 **Datastrukturer i DBMS:**
 
-[Skriv ditt svar her - diskuter B+-tre og hash-indekser]
+I databasesystemer brukes ulike datastrukturer for å implementere indekser.
+
+En vanlig type er B+-tre. Denne brukes ofte som standardindeks i relasjonsdatabaser. B+-tre gjør det raskt å finne data og fungerer godt både for enkeltsøk og for søk innenfor et intervall.
+
+En annen type er hash-indeks. Denne er rask når man søker etter en helt bestemt verdi, men fungerer dårligere for intervallsøk fordi dataene ikke er sortert.
+
+Valget av datastruktur påvirker derfor hvor effektiv en spørring blir.
 
 ---
 
