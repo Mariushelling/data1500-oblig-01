@@ -7,12 +7,13 @@ SELECT * FROM Sykkel;
 
 -- Oppgave 5.2
 SELECT etternavn, fornavn, mobilnummer
-FROM KUNDE
+FROM Kunde
 ORDER BY etternavn ASC;
 
 -- Oppgave 5.3
-SELECT * FROM Sykkel
-WHERE tatt_i_bruk_dato > '2023-43-01';
+SELECT *
+FROM Sykkel
+WHERE tatt_i_bruk_dato > '2023-04-01';
 
 -- Oppgave 5.4
 SELECT COUNT(*) AS antall_kunder
@@ -57,7 +58,3 @@ FROM Utleie u
 JOIN Kunde k ON u.kunde_id = k.kunde_id
 WHERE u.innlevert_tid IS NULL
   AND u.utlevert_tid < NOW() - INTERVAL '1 day';
-
--- Kjør med: docker-compose exec postgres psql -h -U admin -d data1500_db -f test-scripts/queries.sql
-
--- En test med en SQL-spørring mot metadata i PostgreSQL (kan slettes fra din script)
