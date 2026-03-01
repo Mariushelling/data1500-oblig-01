@@ -547,7 +547,9 @@ SQL-spørringene er lagret i filen test-scripts/queries.sql, slik oppgaven kreve
 
 **Eventuelle feil og rettelser:**
 
-Under arbeidet med spørringene oppstod det enkelte mindre syntaksfeil, blant annet knyttet til JOIN og GROUP BY. Disse ble rettet ved å kontrollere kolonnenavn og sikre korrekt bruk av aggregeringsfunksjoner. Etter retting kjørte alle spørringene uten feil.
+Under arbeidet oppstod det en konflikt i queries.sql etter at filen ble redigert både lokalt og via GitHub. Dette førte til en merge-konflikt ved push. Konflikten ble løst ved å beholde korrekt versjon av SQL-spørringene og fullføre rebase før ny push.
+
+I tillegg ble spørringene testet i PostgreSQL for å sikre korrekt syntaks og riktig resultat. Etter rettelser kjørte alle spørringene uten feil.
 
 ---
 
