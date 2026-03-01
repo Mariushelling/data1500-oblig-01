@@ -89,6 +89,7 @@ SELECT
     49.00
 FROM generate_series(1,50) AS gs;
 
+Testdataene er generert ved bruk av PostgreSQL-funksjonen generate_series for å effektivisere opprettelsen av større datamengder.
 
 -- Vis at initialisering er fullført (kan se i loggen fra "docker-compose log"
 SELECT 'Database initialisert!' as status;
