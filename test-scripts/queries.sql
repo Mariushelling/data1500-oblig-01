@@ -13,7 +13,7 @@ ORDER BY etternavn ASC;
 -- Oppgave 5.3
 SELECT *
 FROM Sykkel
-WHERE tatt_i_bruk_dato > '2023-04-01';
+WHERE tatt_i_bruk_dato > '2026-02-26';
 
 -- Oppgave 5.4
 SELECT COUNT(*) AS antall_kunder
@@ -58,3 +58,5 @@ FROM Utleie u
 JOIN Kunde k ON u.kunde_id = k.kunde_id
 WHERE u.innlevert_tid IS NULL
   AND u.utlevert_tid < NOW() - INTERVAL '1 day';
+
+Noen spørringer kan gi 0 rader med dagens testdata, men spørringene er forsatt korrekte og kjører uten feil.
