@@ -329,12 +329,17 @@ GRANT SELECT ON Sykkel TO kunde;
 **SQL for VIEW:**
 
 ```sql
-[Skriv din SQL-kode for VIEW her]
+CREATE OR REPLACE VIEW kunde_1_utleier AS
+SELECT utleie_id, sykkel_id, utlevert_tid, innlevert_tid, leie_sum
+FROM Utleie
+WHERE kunde_id = 1;
+
+GRANT SELECT ON kunde_1_utleier TO kunde;
 ```
 
 **Ulempe med VIEW vs. POLICIES:**
 
-[Skriv ditt svar her - diskuter minst én ulempe med å bruke VIEW for autorisasjon sammenlignet med POLICIES]
+En ulempe med å bruke VIEW for autorisasjon er at sikkerheten ikke ligger direkte på selve tabellen. Hvis en bruker på en eller annan måte får tilgang til den underliggende tabellen, kan viewet omgås og brukeren kan se mer data enn det som var ment. Med POLICIES håndheves tilgangen direkte på tabellen, slik at brukeren kun får tilgang til tillatte rader uansett hvordan dataene hentes.
 
 ---
 
