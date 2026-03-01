@@ -337,6 +337,8 @@ WHERE kunde_id = 1;
 GRANT SELECT ON kunde_1_utleier TO kunde;
 ```
 
+I dette eksemplet er brukeren kunde_1 knyttet til kunde_id = 1, og viewet filtrerer derfor på denne kunden.
+
 **Ulempe med VIEW vs. POLICIES:**
 
 En ulempe med å bruke VIEW for autorisasjon er at sikkerheten ikke ligger direkte på selve tabellen. Hvis en bruker på en eller annan måte får tilgang til den underliggende tabellen, kan viewet omgås og brukeren kan se mer data enn det som var ment. Med POLICIES håndheves tilgangen direkte på tabellen, slik at brukeren kun får tilgang til tillatte rader uansett hvordan dataene hentes.
