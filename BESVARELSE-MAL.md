@@ -427,8 +427,6 @@ Dette viser hvordan redundans i en flat fil kan føre til inkonsistente data.
 
 **Problem 3: Oppdateringsanomalier**
 
-[Skriv ditt svar her - diskuter slette-, innsettings- og oppdateringsanomalier]
-
 En flat fil kan føre til flere typer anomalier:
 
 Oppdateringsanomali:
@@ -476,17 +474,17 @@ Valget av datastruktur påvirker derfor hvor effektiv en spørring blir.
 
 **Foreslått datastruktur:**
 
-[Skriv ditt svar her - f.eks. heap-fil, LSM-tree, eller annen egnet datastruktur]
+Heap-fil hadde vært best egnet.
 
 **Begrunnelse:**
 
 **Skrive-operasjoner:**
 
-[Skriv ditt svar her - forklar hvorfor datastrukturen er egnet for mange skrive-operasjoner]
+En heap-fil passer godt til logging fordi nye hendelser bare legges til etter hverandre. Logging innebærer hovedsakelig å skrive nye rader, og en heap-fil gjør dette raskt og enkelt.
 
 **Lese-operasjoner:**
 
-[Skriv ditt svar her - forklar hvordan datastrukturen håndterer sjeldne lese-operasjoner]
+Leseoppreasjoner skjer sjeldnere enn skriving i en logg. Selv om en heap-fil ikke er optamilisert for raske søk, fungerer den fint når man leser loggen i rekkefølge. Dersom man trenger raskere søk, kan man legge til en indeks.
 
 ---
 
@@ -494,23 +492,29 @@ Valget av datastruktur påvirker derfor hvor effektiv en spørring blir.
 
 **Hvor bør validering gjøres:**
 
-[Skriv ditt svar her - argumenter for validering i ett eller flere lag]
+Validering bør gjøres i flere lag av systemet. Ved å validere både i nettleseren, i applikasjonslaget og i databasen, øker man både sikkerhet og datakvalitet.
 
 **Validering i nettleseren:**
 
-[Skriv ditt svar her - diskuter fordeler og ulemper]
+Validering i netteleseren gir rask tilbakemelding til brukeren, for eksempel hvis et felt er tomt eller e-postadressen har feil format. dette forbedrer brukeropplevelsen.
+
+Ulempen derimot er at validering i nettlesern kan omgås, f.eks ved å manipulere forespørseler direkt. Derfor kan man ikke stole kun på denne typen validering alene.
 
 **Validering i applikasjonslaget:**
 
-[Skriv ditt svar her - diskuter fordeler og ulemper]
+I applikasjonslaget kan man kontrollere at data følger de grunnlegende "reglene", f.eks at mobilnummer har en riktig lengde eller at en bruker ikke kan leie flere sykler samtidig.
+
+Fordelen er at dette gir god kontroll over logikken i systemet, ulempen er at feil forsatt kan oppstå dersom databsen ikke har egne begrensninger.
 
 **Validering i databasen:**
 
-[Skriv ditt svar her - diskuter fordeler og ulemper]
+En database kan bruke mekanisemer som NOT NULL, CHECK-constraints og UNIQUE for å sikre at ugyldige data ikke lagres.
+
+Fordelen er at dette gir mer sikkerhet. Ulempen er at brukeren kan få feilmelding senere i prosessen og ikke direkte i brukergrensesnittet.
 
 **Konklusjon:**
 
-[Skriv ditt svar her - oppsummer hvor validering bør gjøres og hvorfor]
+Konklusjonen min er at validering bør gjøres i alle lag. Fordi en kombinasjon av alle disse vil gi ett mer robust og sikkert system.
 
 ---
 
@@ -518,21 +522,19 @@ Valget av datastruktur påvirker derfor hvor effektiv en spørring blir.
 
 **Hva har du lært så langt i emnet:**
 
-[Skriv din refleksjon her - diskuter sentrale konsepter du har lært]
+Så langt i emnet har jeg lært grunnlegende prinsipper, blant annet hvordan man modellerer eniteter og relasjoner, og bruker primær og fremmednøkler, samt hvordan normalisering bidrar til å reduserer redundans og sikre dataintegritet. Jeg har også blitt mer trygg på SQL, spesielt når det gjelder det å opprette tabeller og definere constraints.
 
 **Hvordan har denne oppgaven bidratt til å oppnå læringsmålene:**
 
-[Skriv din refleksjon her - koble oppgaven til læringsmålene i emnet]
-
-Se oversikt over læringsmålene i en PDF-fil i Canvas https://oslomet.instructure.com/courses/33293/files/folder/Plan%20v%C3%A5ren%202026?preview=4370886
+Denne oppgaven har bidreatt til å koble teori og prakis. Det å faktisk prøve seg på å designe en database fra bunnen av, implementere den i PostreSQL og teste den med Docker, har gjort at jeg har lært hvordan konseptene fungerer i praksis. Spesielt arbeidet med normalisering, fremmednøkler og tilgangskontroll har gitt en mer konkret forståelse av hvordan databaser bygges opp og sikres.
 
 **Hva var mest utfordrende:**
 
-[Skriv din refleksjon her - diskuter hvilke deler av oppgaven som var mest krevende]
+Det mest utfordrene har vært å komme i gang og vite hvor jeg skulle starte. Siden jeg ikke har jobbet med databaser før dette semesteret, måtte jeg først bruke tid på å lære meg og forstå grunnlegende begreper og SQL kommandoer. Små syntaksfeil kunne føre til at hele skriptet stoppet noe som krevde tolmodighet og feilsøking.
 
 **Hva har du lært om databasedesign:**
 
-[Skriv din refleksjon her - reflekter over prosessen med å designe en database fra bunnen av]
+Jeg har lært at databasedesign handler om mer enn bare å lage tabeller. Det krever planlegging, vurdering av relasjoner og bevisste valg rundt normalisering og dataintegritet. Jeg har også fått en mye bedre forståelse for hvorfor det er viktig å unngå redundans og hvordan en god struktur gjør databasen mer robust, effektiv og enklere og vedlikeholde.
 
 ---
 
@@ -540,12 +542,12 @@ Se oversikt over læringsmålene i en PDF-fil i Canvas https://oslomet.instructu
 
 **Plassering av SQL-spørringer:**
 
-[Bekreft at du har lagt SQL-spørringene i `test-scripts/queries.sql`]
+SQL-spørringene er lagret i filen test-scripts/queries.sql, slik oppgaven krever.
 
 
 **Eventuelle feil og rettelser:**
 
-[Skriv ditt svar her - hvis noen tester feilet, forklar hva som var feil og hvordan du rettet det]
+Under arbeidet med spørringene oppstod det enkelte mindre syntaksfeil, blant annet knyttet til JOIN og GROUP BY. Disse ble rettet ved å kontrollere kolonnenavn og sikre korrekt bruk av aggregeringsfunksjoner. Etter retting kjørte alle spørringene uten feil.
 
 ---
 
