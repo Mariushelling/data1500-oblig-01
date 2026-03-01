@@ -7,8 +7,8 @@
 
 CREATE TABLE Kunde (
   kunde_id SERIAL PRIMARY KEY,
-  mobilnummer VARCHAR(15) NOT NULL,
-  epost VARCHAR(100) NOT NULL,
+  mobilnummer VARCHAR(15) NOT NULL UNIQUE,
+  epost VARCHAR(100) NOT NULL UNIQUE,
   fornavn VARCHAR(50) NOT NULL,
   etternavn VARCHAR(50) NOT NULL,
   registrert_tid TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -23,8 +23,8 @@ CREATE TABLE Stasjon (
 
 CREATE TABLE Laas (
   laas_id SERIAL PRIMARY KEY,
-  stasjon_id INTEGER NOT NULL,
-  laas_nummer INTEGER NOT NULL,
+  stasjon_id INTEGER NOT NULL UNIQUE,
+  laas_nummer INTEGER NOT NULL UNIQUE,
   CHECK (laas_nummer > 0),
   FOREIGN KEY (stasjon_id) REFERENCES Stasjon(stasjon_id)
   );
@@ -33,7 +33,7 @@ CREATE TABLE Sykkel (
   sykkel_id SERIAL PRIMARY KEY,
   tatt_i_bruk_dato DATE NOT NULL,
   stasjon_id INTEGER,
-  laas_id INTEGER,
+  laas_id INTEGER UNIQUE,
   FOREIGN KEY (stasjon_id) REFERENCES Stasjon(stasjon_id),
   FOREIGN KEY (laas_id) REFERENCES Laas(laas_id)
   );
@@ -88,17 +88,6 @@ SELECT
     CURRENT_TIMESTAMP - INTERVAL '1 hour',
     49.00
 FROM generate_series(1,50) AS gs;
-
---Testdataene er generert ved bruk av PostgreSQL-funksjonen generate_series for å effektivisere opprettelsen av større datamengder.
-
-
-
--- DBA setninger (rolle: kunde, bruker: kunde_1)
-
-
-
--- Eventuelt: Opprett indekser for ytelse
-
 
 
 -- Vis at initialisering er fullført (kan se i loggen fra "docker-compose log"
