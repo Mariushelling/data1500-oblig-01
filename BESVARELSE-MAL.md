@@ -1,10 +1,10 @@
 # Besvarelse - Refleksjon og Analyse
 
-**Student:** [Ditt navn]
+**Student:** Marius Helling
 
-**Studentnummer:** [Ditt studentnummer]
+**Studentnummer:** mahel5320
 
-**Dato:** [Innleveringsdato]
+**Dato:** 01.03.2026
 
 ---
 
