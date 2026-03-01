@@ -23,9 +23,10 @@ CREATE TABLE Stasjon (
 
 CREATE TABLE Laas (
   laas_id SERIAL PRIMARY KEY,
-  stasjon_id INTEGER NOT NULL UNIQUE,
-  laas_nummer INTEGER NOT NULL UNIQUE,
+  stasjon_id INTEGER NOT NULL,
+  laas_nummer INTEGER NOT NULL,
   CHECK (laas_nummer > 0),
+  UNIQUE (stasjon_id, laas_nummer),
   FOREIGN KEY (stasjon_id) REFERENCES Stasjon(stasjon_id)
   );
 
@@ -89,7 +90,7 @@ SELECT
     49.00
 FROM generate_series(1,50) AS gs;
 
-Testdataene er generert ved bruk av PostgreSQL-funksjonen generate_series for å effektivisere opprettelsen av større datamengder.
+-- Testdataene er generert ved bruk av PostgreSQL-funksjonen generate_series for å effektivisere opprettelsen av større datamengder.
 
 -- Vis at initialisering er fullført (kan se i loggen fra "docker-compose log"
 SELECT 'Database initialisert!' as status;
