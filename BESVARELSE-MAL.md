@@ -341,7 +341,7 @@ I dette eksemplet er brukeren kunde_1 knyttet til kunde_id = 1, og viewet filtre
 
 **Ulempe med VIEW vs. POLICIES:**
 
-En ulempe med å bruke VIEW for autorisasjon er at sikkerheten ikke ligger direkte på selve tabellen. Hvis en bruker på en eller annan måte får tilgang til den underliggende tabellen, kan viewet omgås og brukeren kan se mer data enn det som var ment. Med POLICIES håndheves tilgangen direkte på tabellen, slik at brukeren kun får tilgang til tillatte rader uansett hvordan dataene hentes.
+En ulempe med å bruke VIEW for autorisasjon er at det ikke ligger sikkerhet direkte i selve tabellen. Hvis en bruker på en eller annen måte får tilgang til hele den underliggende tabellen, kan viewet omgås og brukeren kan se mer data enn det som var ment. Med POLICIES håndheves tilgangen direkte på tabellen, slik at brukeren kun får tilgang til tillatte rader uansett hvordan dataene hentes.
 
 ---
 
@@ -357,15 +357,48 @@ En ulempe med å bruke VIEW for autorisasjon er at sikkerheten ikke ligger direk
 
 **Totalt antall utleier per år:**
 
-[Skriv din utregning her]
+Høysesong: 5 måneder x 20 000 per måned = 100 000
+
+Mellomsesong: 4 måneder x 5 000 per måned = 20 000
+
+Lavsesong: 3 måneder x 500 = 1500
+
+Totalt antall utleieforhold hvert år:
+
+100 000 + 20 000 + 1500 = 121 500 utleieforhold
 
 **Estimat for lagringskapasitet:**
 
-[Skriv din utregning her - vis hvordan du har beregnet lagringskapasiteten for hver tabell]
+For å estimere lagringsbehov tar jeg utgangspunkt i tabellen Utleie, siden den vil få 121 500 rader første driftsår og da dominere lagringsbehovet i forhold til totalen av de andre tabellene. Størrelsen per rad kan estimeres ved å summere omtrentelige datastørrelser for de ulike datatypene i tabellen. 
+I prakis bruker databasen mer plass enn bare selve dataene, fordi den lagrer ikke bare verdiene i kolonnene, men også informasjon som brukes for å organisere og strukturere data. Og derfor runder jeg opp estimatet for å ett mer realistisk tall.
+
+Datastørrelsene er basert på omtrentlige verdier for PostgreSQL-datatypene. 
+
+- utleie_id (INTEGER): ca. 4 byte
+- kunde_id (INTEGER): ca. 4 byte
+- sykkel_id (INTEGER): ca. 4 byte
+- utlevert_tid (TIMESTAMP): ca. 8 byte
+- innlevert_tid (TIMESTAMP): ca. 8 byte
+- leie_sum (NUMERIC): ca. 8 byte
+
+Totalt gir dette omtrent 36 byte med data per rad. For å ta høyde for intern lagring, indekser osv, runder jeg opp og antar rundt 100 byte per rad. 
+
+121 500 x 100 byte = 12 150 000 byte som gir oss rundt 12,2 MB.
+
+for de andre tabellene:
+
+Kunde: 5 rader × ca. 200 byte ≈ 1000 byte
+Stasjon: 5 rader × ca. 200 byte ≈ 1000 byte
+Laas: 100 rader × ca. 50 byte ≈ 5000 byte
+Sykkel: 100 rader × ca. 50 byte ≈ 5000 byte
+
+Kunde og Stasjon antas å bruke mer lagringsplass per rad fordi de inneholder tektfelt/VARCHAR (f.eks navn, adresse og e-post) som krever mer plass enn heltall og datoer, som Laas og Sykkel hovedsakelig består av. 
 
 **Totalt for første år:**
 
-[Skriv ditt estimat her]
+Basert på bergningene over vil Utleie-tabellen alene kreve omtrent 12,2 MB lagringsplass første driftsår. De andre tabellene utgjør svært lite i forhold til dette, og jeg går derfor ut i fra Utleie tabellen sine tall som jeg skrev over.
+
+I prakis vil databasen bruke noe mer lagringsplass en selve datamengden, på grunn av indekser, og intern lagringstruktur i PostreSQL. Med utganspunkt i det har jeg da valgt å dobble datamengden. Etter å ha gjort dette kan den totale lagringsplassen estimeres til rundt 25 MB første år.
 
 ---
 
